@@ -1,0 +1,20 @@
+mixin makeContact(contacts)
+  each contact in contacts
+    tr
+      td= contact.name
+      td= contact.surname
+      td= contact.phone
+      td= contact.email
+
+if contacts
+  .responsive-table
+    table(class="table table-bordered")
+      thead.thead-light
+        tr
+          th(scope="col") Nome
+          th(scope="col") Sobrenome
+          th(scope="col") Telefone
+          th(scope="col") E-mail
+
+      tbody
+        +makeContact(contacts)

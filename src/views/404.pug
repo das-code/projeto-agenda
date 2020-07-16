@@ -1,8 +1,16 @@
-- const pageTitle = '404'
+- const title = '404!'
 
 include includes/head
 
 body
-  h1 404
+  include includes/navbar
+
+  .container
+    .row
+      .col-lg-2
+      div(class="col-lg-8 my-5")
+        h1(class="display-1 text-center text-danger") 404!
+        p(class="text-center lead") A página que você procura não existe.
+      .col-lg-2
 
   include includes/footer

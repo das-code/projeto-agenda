@@ -1,21 +1,24 @@
-- const pageTitle = 'Página Inicial'
+-
+  const title = 'Contatos'
+  const alertMessage = 'Uma simples mensagem de alerta!' 
+  const type = 'warning'
 
-include includes/head.pug
+include includes/head
 
 body
-  div.container
-    header.main-header
-      h1.main-header__title= headTitle
+  include includes/navbar
 
-    p
-      if typeof localVariable !== 'undefined'
-        = localVariable
-      else 
-        | O título não foi enviado 
+  .container
+    .row
+      .col-lg-2
 
-    each num in numbers    
-      p= num
+      div(class="col-lg-8 my-3")
+        h1(class="text-center") Lista de Contatos
+        p(class="text-center lead") Seus contatos estão abaixo.
 
-    main.content
+        include includes/alert
+        include includes/contacts
+
+      .col-lg-2
 
   include includes/footer
