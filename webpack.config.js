@@ -1,13 +1,12 @@
 const path = require('path')
-const fileLoader = require('file-loader')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 
 module.exports = {
   entry: path.resolve('./frontend/assets/js/main.js'),
 
   output: {
-    path: path.resolve('./public/assets/js'),
-    filename: 'bundle.js',
+    path: path.resolve('./public/assets'),
+    filename: 'js/bundle.js',
   },
 
   module: {
@@ -29,11 +28,20 @@ module.exports = {
       },
 
       {
-        test: /\.(png|jpe?g|gif|ico)$/i,
+        test: /\.(png|jpe?g|gif)$/i,
         loader: 'file-loader',
         options: {
           name: '[name].[ext]',
-          outputPath: '../images',
+          outputPath: 'images/',
+        },
+      },
+
+      {
+        test: /(\w+)-favicon\.(png|ico)$/i,
+        loader: 'file-loader',
+        options: {
+          name: '[name].[ext]',
+          outputPath: 'images/favicon/',
         },
       },
     ],
@@ -41,7 +49,7 @@ module.exports = {
 
   plugins: [
     new MiniCssExtractPlugin({
-      filename: '../css/style.css',
+      filename: 'css/style.css',
     }),
   ],
 
