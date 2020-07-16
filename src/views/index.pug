@@ -1,0 +1,21 @@
+- const pageTitle = 'Página Inicial'
+
+include includes/head.pug
+
+body
+  div.container
+    header.main-header
+      h1.main-header__title= headTitle
+
+    p
+      if typeof localVariable !== 'undefined'
+        = localVariable
+      else 
+        | O título não foi enviado 
+
+    each num in numbers    
+      p= num
+
+    main.content
+
+  include includes/footer
