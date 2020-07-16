@@ -1,8 +1,8 @@
 const { Router } = require('express')
 const route = Router()
 
-const { homePage } = require('./src/controllers/home-controller')
-const { formPage, sendFormData } = require('./src/controllers/form-controller')
+const { homePage } = require('./controllers/home-controller')
+const { formPage, sendFormData } = require('./controllers/form-controller')
 
 // pagina inicial
 route.get('/', homePage)

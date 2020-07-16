@@ -11,7 +11,7 @@ const session = require('express-session')
 const MongoStore = require('connect-mongo')(session)
 const flashMessage = require('connect-flash')
 
-const routes = require('./routes')
+const routes = require('./src/routes')
 const {
   globalMiddleware,
   checkCsrfError,
