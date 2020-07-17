@@ -1,0 +1,17 @@
+mixin form(formInfo)
+  div(class=`col-md card mx-1 my-2 px-2 py-3 bg-light border border-${formInfo.theme}`) 
+    h3= formInfo.title 
+    p.text-muted= formInfo.subtitle
+
+    form(action=`${formInfo.action}` method='POST')
+      input(type="hidden" name="_csrf" value=`${csrfToken}`)
+
+      div.form-group
+        label(for="email") Seu e-mail
+        input(class=`form-control border border-${formInfo.theme}` type="email" name="email")
+
+      div.form-group
+        label(for="password") Sua senha
+        input(class=`form-control border border-${formInfo.theme}` type="password" name="password")
+
+      button(class=`btn btn-${formInfo.theme} btn-lg btn-block font-weight-bold` type="submit")= formInfo.buttonLabel

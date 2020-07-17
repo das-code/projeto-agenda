@@ -1,0 +1,42 @@
+- const title = 'Login'
+
+
+include includes/head
+
+body
+  include includes/navbar
+
+  .container
+    .row
+      .col-auto
+
+      div(class="col-lg my-5")
+        h1(class="text-center") Entrar no sistema 
+        p(class="text-center lead") Faça login ou crie sua conta abaixo.
+
+        .row
+          include includes/formLogin
+
+          -
+            const formCreate = {
+              title: 'Faça seu cadastro',
+              subtitle: 'Ainda não tem conta? Crie agora mesmo.',
+              action: 'login/register',
+              theme: 'success',
+              buttonLabel: 'Criar minha conta',
+            }
+            const formLogin = {
+              title: 'Entrar no Sistema',
+              subtitle: 'Já é nosso cliente? Bem vindo de volta.',
+              action: 'login/login',
+              theme: 'info',
+              buttonLabel: 'Entra agora mesmo',
+            }
+            
+          +form(formCreate)
+          +form(formLogin)
+
+
+      .col-auto
+
+  include includes/footer
