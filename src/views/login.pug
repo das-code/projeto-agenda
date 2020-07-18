@@ -14,6 +14,14 @@ body
         h1(class="text-center") Entrar no sistema 
         p(class="text-center lead") Faça login ou crie sua conta abaixo.
 
+        include includes/flashMessage
+
+        if errorsMessages.length
+          +flashMessage({ type: 'danger', messages: errorsMessages })
+
+        if successMessage.length
+          +flashMessage({ type: 'success', messages: successMessage })
+
         .row
           include includes/formLogin
 
@@ -21,18 +29,19 @@ body
             const formCreate = {
               title: 'Faça seu cadastro',
               subtitle: 'Ainda não tem conta? Crie agora mesmo.',
-              action: 'login/register',
+              action: '/login/register',
               theme: 'success',
               buttonLabel: 'Criar minha conta',
             }
+
             const formLogin = {
               title: 'Entrar no Sistema',
               subtitle: 'Já é nosso cliente? Bem vindo de volta.',
-              action: 'login/login',
-              theme: 'info',
+              action: '/login/login',
+              theme: 'primary',
               buttonLabel: 'Entra agora mesmo',
             }
-            
+
           +form(formCreate)
           +form(formLogin)
 

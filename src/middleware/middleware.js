@@ -1,5 +1,7 @@
-exports.globalMiddleware = (req, res, next) => {
-  res.locals.localVariable = 'este é o valor da variável local'
+exports.globalData = (req, res, next) => {
+  res.locals.successMessage = req.flash('successMessage')
+  res.locals.errorsMessages = req.flash('errorsMessages')
+  res.locals.user = req.session.user
 
   next()
 }

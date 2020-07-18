@@ -1,0 +1,6 @@
+mixin flashMessage(data)
+  .row
+    .col-lg
+      div(class=`alert alert-${data.type}`)
+        each message in data.messages 
+          p.m-0= message

@@ -13,7 +13,7 @@ const flashMessage = require('connect-flash')
 
 const routes = require('./src/routes')
 const {
-  globalMiddleware,
+  globalData,
   checkCsrfError,
   csrfMiddleware,
 } = require('./src/middleware/middleware')
@@ -59,7 +59,7 @@ app.set('view engine', 'pug')
 app.use(csurf())
 
 // Middleware disparado para todas as rotas.
-app.use(globalMiddleware)
+app.use(globalData)
 app.use(checkCsrfError)
 app.use(csrfMiddleware)
 
