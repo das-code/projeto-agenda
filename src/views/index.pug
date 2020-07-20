@@ -23,6 +23,9 @@ body
 
         include includes/contacts
 
+        if contacts
+          +makeContactsTable(contacts)
+
       .col-lg-2
 
   include includes/footer

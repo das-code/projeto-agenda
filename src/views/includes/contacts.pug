@@ -1,12 +1,4 @@
-mixin makeContact(contacts)
-  each contact in contacts
-    tr
-      td= contact.name
-      td= contact.surname
-      td= contact.phone
-      td= contact.email
-
-if contacts
+mixin makeContactsTable(contacts)
   .responsive-table
     table(class="table table-bordered")
       thead.thead-light
@@ -17,4 +9,9 @@ if contacts
           th(scope="col") E-mail
 
       tbody
-        +makeContact(contacts)
+        each contact in contacts
+          tr
+            td= contact.name
+            td= contact.surname
+            td= contact.phone
+            td= contact.email

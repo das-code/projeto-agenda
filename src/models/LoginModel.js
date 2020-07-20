@@ -10,8 +10,9 @@ const LoginSchema = new mongoose.Schema({
 const LoginModel = mongoose.model('Login', LoginSchema)
 
 class Login {
-  constructor(body) {
-    this.body = body
+  constructor(email, password) {
+    this.email = email
+    this.password = password
     this.errors = []
     this.user = null
   }
@@ -20,60 +21,54 @@ class Login {
     this.validate()
     if (this.errors.length > 0) return
 
-    this.user = await LoginModel.findOne({ email: this.body.email })
+    const user = await this.userExists()
 
-    if (!this.user) {
+    if (!user) {
       this.errors.push('Usuário não cadastrado.')
       return
     }
 
-    if (!bcrypt.compareSync(this.body.password, this.user.password)) {
+    if (!bcrypt.compareSync(this.password, user.password)) {
       this.errors.push('Senha incorreta.')
-      // this.user = null
+      this.user = null
       return
     }
+    this.user = user
   }
 
   async createAccount() {
     this.validate()
     if (this.errors.length > 0) return
 
-    await this.userExists()
-    if (this.errors.length > 0) return
+    const user = await this.userExists()
+
+    if (user) {
+      this.errors.push(`Usuário ${user.email} já existe.`)
+      return
+    }
 
     const salt = bcrypt.genSaltSync()
-    this.body.password = bcrypt.hashSync(this.body.password, salt)
+    this.password = bcrypt.hashSync(this.password, salt)
 
-    this.user = await LoginModel.create(this.body)
+    this.user = await LoginModel.create({
+      email: this.email,
+      password: this.password,
+    })
   }
 
   async userExists() {
-    const user = await LoginModel.findOne({ email: this.body.email })
+    const user = await LoginModel.findOne({ email: this.email })
 
-    if (user) this.errors.push('Usuário já existe.')
+    return user ? user : null
   }
 
   validate() {
-    this.cleanUp()
+    if (typeof this.email !== 'string') this.email = ''
+    if (typeof this.password !== 'string') this.password = ''
 
-    if (!validator.isEmail(this.body.email))
-      this.errors.push('E-mail inválido.')
-
-    if (this.body.password.length < 6 || this.body.password.length > 30)
+    if (!validator.isEmail(this.email)) this.errors.push('E-mail inválido.')
+    if (this.password.length < 6 || this.password.length > 30)
       this.errors.push('A senha precisa ter entre 6 a 30 caracteres.')
-  }
-
-  cleanUp() {
-    for (let key in this.body) {
-      if (typeof this.body[key] !== 'string') {
-        this.body[key] = ''
-      }
-    }
-
-    this.body = {
-      email: this.body.email,
-      password: this.body.password,
-    }
   }
 }
 

@@ -8,7 +8,10 @@ exports.index = (req, res) => {
 
 exports.register = async (req, res) => {
   try {
-    const login = new Login(req.body)
+    const email = req.body.email
+    const password = req.body.password
+    const login = new Login(email, password)
+
     await login.createAccount()
 
     if (login.errors.length > 0) {
@@ -28,7 +31,10 @@ exports.register = async (req, res) => {
 
 exports.login = async (req, res) => {
   try {
-    const login = new Login(req.body)
+    const email = req.body.email
+    const password = req.body.password
+    const login = new Login(email, password)
+
     await login.login()
 
     if (login.errors.length > 0) {
