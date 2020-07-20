@@ -21,7 +21,7 @@ body
         if successMessage.length
           +flashMessage({ type: 'success', messages: successMessage })
 
-        include includes/contacts
+        include includes/contactsTable
 
         if contacts
           +makeContactsTable(contacts)

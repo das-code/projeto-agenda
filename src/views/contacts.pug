@@ -1,0 +1,47 @@
+include includes/head
+
+body
+  include includes/navbar
+
+  .container
+    .row
+      .col-2
+
+      div(class="col-md mt-3")
+        include includes/flashMessage
+
+        if errorsMessages.length
+          +flashMessage({ type: 'danger', messages: errorsMessages })
+
+        if successMessage.length
+          +flashMessage({ type: 'success', messages: successMessage })
+
+        div(class="card mx-1 my-2 px-2 py-3 bg-light") 
+          h3 Contato 
+          p.text-muted Crie ou edite seu contato. 
+
+          form(action="/contato/register" method='POST')
+            input(type="hidden" name="_csrf" value=`${csrfToken}`)
+
+            div.form-group
+              label(for="name") Nome 
+              input(class="form-control" type="text" name="username" value=`${contact.name}`)
+
+            div.form-group
+              label(for="surname") Sobrenome 
+              input(class="form-control" type="text" name="surname" value=`${contact.surname}`)
+
+            div.form-group
+              label(for="email") E-mail 
+              input(class="form-control" type="email" name="email" value=`${contact.email}`)
+
+            div.form-group
+              label(for="phone") Número Telefone 
+              input(class="form-control" type="tel" name="phone" value=`${contact.phone}`)
+
+            button(class=`btn btn-success btn-lg btn-block font-weight-bold` type="submit")
+              | Salvar
+
+      .col-2
+
+  include includes/footer
