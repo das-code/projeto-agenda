@@ -25,19 +25,39 @@ body
 
             div.form-group
               label(for="name") Nome 
-              input(class="form-control" type="text" name="username" value=`${contact.name}`)
+              input(
+                class="form-control"
+                type="text"
+                name="name"
+                value= `${contact ? contact.name : ''}`
+              )
 
             div.form-group
               label(for="surname") Sobrenome 
-              input(class="form-control" type="text" name="surname" value=`${contact.surname}`)
+              input(
+                class="form-control"
+                type="text"
+                name="surname"
+                value= `${contact ? contact.surname : ''}`
+              )
 
             div.form-group
               label(for="email") E-mail 
-              input(class="form-control" type="email" name="email" value=`${contact.email}`)
+              input(
+                class="form-control"
+                type="text"
+                name="email"
+                value= `${contact ? contact.email : ''}`
+              )
 
             div.form-group
               label(for="phone") Número Telefone 
-              input(class="form-control" type="tel" name="phone" value=`${contact.phone}`)
+              input(
+                class="form-control"
+                type="text"
+                name="phone"
+                value= `${contact ? contact.phone : ''}`
+              )
 
             button(class=`btn btn-success btn-lg btn-block font-weight-bold` type="submit")
               | Salvar

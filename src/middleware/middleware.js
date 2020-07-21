@@ -19,12 +19,30 @@ exports.csrfMiddleware = (req, res, next) => {
   next()
 }
 
-exports.loginRequired = (req, res, next) => {
-  if (!req.session.user) {
+const Login = require('../models/LoginModel')
+
+exports.loginRequired = async (req, res, next) => {
+  const cacheUserData = req.session.user
+
+  if (!cacheUserData) {
     req.flash('errorsMessages', 'Você precisa está logado.')
     req.session.save(() => res.redirect('/'))
     return
   }
-  
-  next()
+
+  try {
+    const serverUserData = await Login.findByID(cacheUserData._id)
+    console.log(cacheUserData.password, serverUserData.password)
+
+    if (cacheUserData.password !== serverUserData.password) {
+      req.flash('errorsMessages', 'Você precisa está logado.')
+      req.session.save(() => res.redirect('/'))
+      return
+    }
+
+    next()
+  } catch (err) {
+    console.log(err)
+    res.render('404')
+  }
 }

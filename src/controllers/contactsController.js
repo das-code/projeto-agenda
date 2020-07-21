@@ -1,14 +1,12 @@
 const Contact = require('../models/ContactModel')
 
 exports.index = (req, res) => {
-  res.render('contacts', {
-    contact: { name: '', surname: '', email: '', phone: '' },
-  })
+  res.render('contacts', { contact: null })
 }
 
 exports.register = async (req, res) => {
   try {
-    const { username: name, surname, email, phone } = req.body
+    const { name, surname, email, phone } = req.body
     const newContact = new Contact(name, surname, email, phone)
 
     const contact = await newContact.register()
@@ -33,7 +31,7 @@ exports.register = async (req, res) => {
 exports.edit = async (req, res) => {
   if (!req.params.id) return res.render('404')
 
-  const contact = await Contact.searchById(req.params.id)
+  const contact = await Contact.findById(req.params.id)
   if (!contact) return res.render('404')
 
   res.render('contacts', { contact })

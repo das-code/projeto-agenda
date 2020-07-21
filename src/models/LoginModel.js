@@ -66,6 +66,12 @@ class Login {
 
     return errors
   }
+
+  static async findByID(id) {
+    if(typeof id !== 'string') return
+
+    return await LoginModel.findById(id)
+  }
 }
 
 module.exports = Login

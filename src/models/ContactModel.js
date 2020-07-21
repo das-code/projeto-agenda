@@ -26,7 +26,7 @@ Contact.prototype.register = async function () {
   return { contact, errors: null }
 }
 
-Contact.searchById = async function (id) {
+Contact.findById = async function (id) {
   if (typeof id !== 'string') return
   return await ContactModel.findById(id)
 }
