@@ -11,15 +11,16 @@ exports.register = async (req, res) => {
     const { email, password } = req.body
     const login = new Login(email, password)
 
-    await login.createAccount()
+    const userAccount = await login.createAccount()
 
-    if (login.errors.length > 0) {
-      req.flash('errorsMessages', login.errors)
+    if (userAccount.errors && userAccount.errors.length > 0) {
+      req.flash('errorsMessages', userAccount.errors)
       req.session.save(() => res.redirect('back'))
       return
     }
 
     req.flash('successMessage', 'Seu usuário foi criado com sucesso.')
+    req.session.user = userAccount.user
     req.session.save(() => res.redirect('back'))
     return
   } catch (err) {
@@ -33,16 +34,16 @@ exports.login = async (req, res) => {
     const { email, password } = req.body
     const login = new Login(email, password)
 
-    await login.login()
+    const userAccount = await login.login()
 
-    if (login.errors.length > 0) {
-      req.flash('errorsMessages', login.errors)
+    if (userAccount.errors && userAccount.errors.length > 0) {
+      req.flash('errorsMessages', userAccount.errors)
       req.session.save(() => res.redirect('back'))
       return
     }
 
     req.flash('successMessage', 'Seu usuário já está logado.')
-    req.session.user = login.user
+    req.session.user = userAccount.user
     req.session.save(() => res.redirect('/'))
     return
   } catch (err) {
