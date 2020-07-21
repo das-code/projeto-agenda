@@ -2,7 +2,6 @@ exports.globalData = (req, res, next) => {
   res.locals.successMessage = req.flash('successMessage')
   res.locals.errorsMessages = req.flash('errorsMessages')
   res.locals.user = req.session.user
-  res.locals.contact = req.session.contact
 
   next()
 }

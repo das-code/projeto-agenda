@@ -1,5 +1,4 @@
 const Contact = require('../models/ContactModel')
-const { subscribe } = require('../routes')
 
 exports.index = (req, res) => {
   res.render('contacts', {
@@ -9,11 +8,7 @@ exports.index = (req, res) => {
 
 exports.register = async (req, res) => {
   try {
-    const name = req.body.username
-    const surname = req.body.surname
-    const email = req.body.email
-    const phone = req.body.phone
-
+    const { username: name, surname, email, phone } = req.body
     const contact = new Contact(name, surname, email, phone)
 
     await contact.register()

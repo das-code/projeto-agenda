@@ -8,8 +8,7 @@ exports.index = (req, res) => {
 
 exports.register = async (req, res) => {
   try {
-    const email = req.body.email
-    const password = req.body.password
+    const { email, password } = req.body
     const login = new Login(email, password)
 
     await login.createAccount()
@@ -31,8 +30,7 @@ exports.register = async (req, res) => {
 
 exports.login = async (req, res) => {
   try {
-    const email = req.body.email
-    const password = req.body.password
+    const { email, password } = req.body
     const login = new Login(email, password)
 
     await login.login()
