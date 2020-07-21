@@ -16,28 +16,19 @@ function Contact(name, surname, email, phone) {
   this.surname = surname
   this.email = email
   this.phone = phone
-  this.errors = []
-  this.contact = null
 }
 
 Contact.prototype.register = async function () {
-  this.validate()
-  if (this.errors.length > 0) return
+  const errors = this.validate()
+  if (errors.length > 0) return { contact: null, errors }
 
-  const contact = {
-    name: this.name,
-    surname: this.surname,
-    email: this.email,
-    phone: this.phone,
-  }
-
-  this.contact = await ContactModel.create(contact)
+  const contact = await ContactModel.create(this)
+  return { contact, errors: null }
 }
 
 Contact.searchById = async function (id) {
   if (typeof id !== 'string') return
-  const contact = await ContactModel.findById(id)
-  return contact
+  return await ContactModel.findById(id)
 }
 
 Contact.prototype.validate = function () {
@@ -46,11 +37,17 @@ Contact.prototype.validate = function () {
   if (typeof this.email !== 'string') this.email = ''
   if (typeof this.phone !== 'string') this.phone = ''
 
-  if (!this.name) this.errors.push('Nome é obrigatório.')
+  const errors = []
+
+  if (!this.name) errors.push('Nome é obrigatório.')
+
   if (this.email && !validator.isEmail(this.email))
-    this.errors.push('E-mail inválido.')
+    errors.push('E-mail inválido.')
+
   if (!this.email && !this.phone)
-    this.errors.push('E-mail ou telefone precisa ser preenchido.')
+    errors.push('E-mail ou telefone precisa ser preenchido.')
+
+  return errors
 }
 
 module.exports = Contact

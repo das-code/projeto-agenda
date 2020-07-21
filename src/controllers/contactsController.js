@@ -9,17 +9,17 @@ exports.index = (req, res) => {
 exports.register = async (req, res) => {
   try {
     const { username: name, surname, email, phone } = req.body
-    const contact = new Contact(name, surname, email, phone)
+    const newContact = new Contact(name, surname, email, phone)
 
-    await contact.register()
+    const contact = await newContact.register()
 
-    if (contact.errors.length > 0) {
+    if (contact.errors && contact.errors.length > 0) {
       req.flash('errorsMessages', contact.errors)
       req.session.save(() => res.redirect('back'))
       return
     }
 
-    req.flash('successMessage', 'Contato foi registrado com sucesso.')
+    req.flash('successMessage', 'Seu novo contato foi registrado com sucesso.')
     req.session.save(() =>
       res.redirect(`/contato/index/${contact.contact._id}`)
     )
