@@ -19,6 +19,7 @@ route.get('/login/logout', loginController.logout)
 // contato
 route.get('/contato/index', loginRequired, contactsController.index)
 route.post('/contato/register', loginRequired, contactsController.register)
-route.get('/contato/index/:id', loginRequired, contactsController.edit)
+route.get('/contato/index/:id', loginRequired, contactsController.updateIndex)
+route.post('/contato/update/:id', loginRequired, contactsController.update)
 
 module.exports = route

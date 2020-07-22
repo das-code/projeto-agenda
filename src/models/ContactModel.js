@@ -26,9 +26,24 @@ Contact.prototype.register = async function () {
   return { contact, errors: null }
 }
 
+Contact.prototype.update = async function (id) {
+  if (typeof id !== 'string') return
+
+  const errors = this.validate()
+  if (errors.length > 0) return { contact: null, errors }
+
+  const contact = await ContactModel.findByIdAndUpdate(id, this, {
+    new: true,
+    useFindAndModify: false,
+  })
+  return { contact, errors: null }
+}
+
 Contact.findById = async function (id) {
   if (typeof id !== 'string') return
-  return await ContactModel.findById(id)
+
+  const contact = await ContactModel.findById(id)
+  return contact ? contact : null
 }
 
 Contact.prototype.validate = function () {

@@ -32,7 +32,6 @@ exports.loginRequired = async (req, res, next) => {
 
   try {
     const serverUserData = await Login.findByID(cacheUserData._id)
-    console.log(cacheUserData.password, serverUserData.password)
 
     if (cacheUserData.password !== serverUserData.password) {
       req.flash('errorsMessages', 'Você precisa está logado.')

@@ -1,3 +1,4 @@
+- const title = 'Criar novo contato'
 include includes/head
 
 body
@@ -20,7 +21,10 @@ body
           h3 Contato 
           p.text-muted Crie ou edite seu contato. 
 
-          form(action="/contato/register" method='POST')
+          form(
+            action=`${contact ? `/contato/update/${contact._id}` : '/contato/register'}`
+            method='POST'
+          )
             input(type="hidden" name="_csrf" value=`${csrfToken}`)
 
             div.form-group
