@@ -32,18 +32,8 @@ Contact.prototype.update = async function (id) {
   const errors = this.validate()
   if (errors.length > 0) return { contact: null, errors }
 
-  const contact = await ContactModel.findByIdAndUpdate(id, this, {
-    new: true,
-    useFindAndModify: false,
-  })
+  const contact = await ContactModel.findByIdAndUpdate(id, this, { new: true })
   return { contact, errors: null }
-}
-
-Contact.findById = async function (id) {
-  if (typeof id !== 'string') return
-
-  const contact = await ContactModel.findById(id)
-  return contact ? contact : null
 }
 
 Contact.prototype.validate = function () {
@@ -63,6 +53,25 @@ Contact.prototype.validate = function () {
     errors.push('E-mail ou telefone precisa ser preenchido.')
 
   return errors
+}
+
+// Static methods
+Contact.findById = async function (id) {
+  if (typeof id !== 'string') return
+
+  const contact = await ContactModel.findById(id)
+  return contact ? contact : null
+}
+
+Contact.listAll = async function () {
+  const contacts = await ContactModel.find().sort({ createdAt: -1 })
+  return contacts ? contacts : null
+}
+
+Contact.delete = async function (id) {
+  if (typeof id !== 'string') return
+
+  return await ContactModel.findByIdAndDelete(id) 
 }
 
 module.exports = Contact

@@ -19,7 +19,7 @@ exports.register = async (req, res) => {
 
     req.flash('successMessage', 'Seu novo contato foi registrado com sucesso.')
     req.session.save(() =>
-      res.redirect(`/contato/index/${contact.contact._id}`)
+      res.redirect('/')
     )
     return
   } catch (err) {
@@ -31,10 +31,15 @@ exports.register = async (req, res) => {
 exports.updateIndex = async (req, res) => {
   if (!req.params.id) return res.render('404')
 
-  const contact = await Contact.findById(req.params.id)
-  if (!contact) return res.render('404')
+  try {
+    const contact = await Contact.findById(req.params.id)
+    if (!contact) return res.render('404')
 
-  res.render('contacts', { contact })
+    res.render('contacts', { contact })
+  } catch (err) {
+    console.log(err)
+    return res.render('404')
+  }
 }
 
 exports.update = async (req, res) => {
@@ -53,8 +58,26 @@ exports.update = async (req, res) => {
 
     req.flash('successMessage', 'Seu contato foi atualizado com sucesso.')
     req.session.save(() =>
-      res.redirect(`/contato/index/${updatedContact.contact._id}`)
+      res.redirect('/')
     )
+    return
+  } catch (err) {
+    console.log(err)
+    return res.render('404')
+  }
+}
+
+exports.delete = async (req, res) => {
+  if (!req.params.id) return res.render('404')
+
+  try {
+    const deletedContact = await Contact.delete(req.params.id)
+
+    req.flash(
+      'successMessage',
+      `O contato ${deletedContact.name} foi deletado com sucesso.`
+    )
+    req.session.save(() => res.redirect('back'))
     return
   } catch (err) {
     console.log(err)

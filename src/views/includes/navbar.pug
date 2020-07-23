@@ -1,18 +1,32 @@
 nav(class="navbar navbar-expand-sm navbar-dark bg-dark")
   a(class="navbar-brand my-2 font-weight-bold" href="/")
-    img(src="/assets/images/contacts.png" width="30" height="30" class="d-inline-block align-top mr-2" alt="" loading="lazy")
+    img(
+      src="/assets/images/contacts.png"
+      width="30" height="30"
+      class="d-inline-block align-top mr-2"
+      loading="lazy"
+    ) 
     | Agenda
 
-  button.navbar-toggler(type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation")
+  button.navbar-toggler(
+    type="button"
+    data-toggle="collapse"
+    data-target="#navbarSupportedContent"
+    aria-controls="navbarSupportedContent"
+    aria-expanded="false"
+    aria-label="Toggle navigation"
+  )
     span.navbar-toggler-icon
 
-  div(class="collapse navbar-collapse justify-content-end my-2" id="navbarSupportedContent")
+  div(
+    class="collapse navbar-collapse justify-content-end my-2"
+    id="navbarSupportedContent"
+  )
     ul(class="navbar-nav d-flex flex-row justify-content-center")
       li(class="nav-item")
         a(class="btn btn-success mr-2" href="/contato/index") Cadastrar Contato
-      if user
-        li(class="nav-item")
-          a(class="btn btn-danger" href="/login/logout") Sair 
-      else
-        li(class="nav-item")
-          a(class="btn btn-primary" href="/login/index") Entrar 
+      li(class="nav-item")
+        a(
+          class=`btn btn-${user ? 'danger' : 'primary'}`
+          href=`/login/${user ? 'logout' : 'index'}`
+        )= user ? 'Sair' : 'Entrar' 

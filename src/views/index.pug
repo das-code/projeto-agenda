@@ -7,11 +7,11 @@ body
 
   .container
     .row
-      .col-lg-2
+      .col-auto
 
-      div(class="col-lg-8 my-3")
+      div(class="col-lg my-3")
         h1(class="text-center") Lista de Contatos
-        p(class="text-center lead") Seus contatos estão abaixo.
+        p(class="text-center lead mb-5") Seus contatos estão abaixo.
 
         include includes/flashMessage
 
@@ -23,9 +23,11 @@ body
 
         include includes/contactsTable
 
-        if contacts
+        if Object.keys(contacts).length
           +makeContactsTable(contacts)
+        else
+          p(class="text-center lead text-muted") Não existem contatos na sua agenda
 
-      .col-lg-2
+      .col-auto
 
   include includes/footer

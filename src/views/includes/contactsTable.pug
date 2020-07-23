@@ -1,12 +1,13 @@
 mixin makeContactsTable(contacts)
-  .responsive-table
-    table(class="table table-bordered")
-      thead.thead-light
+  .table-responsive-md
+    table(class="table table-sm table-borderless table-hover")
+      thead
         tr
           th(scope="col") Nome
           th(scope="col") Sobrenome
           th(scope="col") Telefone
           th(scope="col") E-mail
+          th(scope="col" colspan="2") Ações 
 
       tbody
         each contact in contacts
@@ -15,3 +16,13 @@ mixin makeContactsTable(contacts)
             td= contact.surname
             td= contact.phone
             td= contact.email
+            td
+              a(
+                class="text-primary font-weight-bold text-decoration-none"
+                href=`/contato/index/${contact._id}`
+              ) Editar 
+            td
+              a(
+                class="text-danger font-weight-bold  text-decoration-none"
+                href=`/contato/delete/${contact._id}`
+              ) Apagar 
