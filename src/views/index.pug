@@ -10,8 +10,9 @@ body
       .col-auto
 
       div(class="col-lg my-3")
-        h1(class="text-center") Lista de Contatos
-        p(class="text-center lead mb-5") Seus contatos estão abaixo.
+        if user
+          h1(class="text-center") Lista de Contatos
+          p(class="text-center lead mb-5") Seus contatos estão abaixo.
 
         include includes/flashMessage
 
@@ -23,10 +24,13 @@ body
 
         include includes/contactsTable
 
-        if Object.keys(contacts).length
-          +makeContactsTable(contacts)
+        if !user
+          include includes/wellcome
         else
-          p(class="text-center lead text-muted") Não existem contatos na sua agenda
+          if contacts && Object.keys(contacts).length
+            +makeContactsTable(contacts)
+          else
+            p(class="text-center lead text-muted") Não existem contatos na sua agenda
 
       .col-auto
 

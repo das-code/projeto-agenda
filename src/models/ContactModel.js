@@ -6,6 +6,7 @@ const contactSchema = new mongoose.Schema({
   surname: { type: String, required: false, default: '' },
   email: { type: String, required: false, default: '' },
   phone: { type: String, required: false, default: '' },
+  createdById: { type: mongoose.Types.ObjectId, required: true },
   createdAt: { type: Date, default: Date.now },
 })
 
@@ -18,11 +19,11 @@ function Contact(name, surname, email, phone) {
   this.phone = phone
 }
 
-Contact.prototype.register = async function () {
+Contact.prototype.register = async function (createdById) {
   const errors = this.validate()
   if (errors.length > 0) return { contact: null, errors }
 
-  const contact = await ContactModel.create(this)
+  const contact = await ContactModel.create({ ...this, createdById })
   return { contact, errors: null }
 }
 
@@ -63,15 +64,20 @@ Contact.findById = async function (id) {
   return contact ? contact : null
 }
 
-Contact.listAll = async function () {
-  const contacts = await ContactModel.find().sort({ createdAt: -1 })
+Contact.listAll = async function (loggedUserId) {
+  if (!loggedUserId) return null
+
+  const contacts = await ContactModel.find({ createdById: loggedUserId }).sort({
+    createdAt: -1,
+  })
+
   return contacts ? contacts : null
 }
 
 Contact.delete = async function (id) {
   if (typeof id !== 'string') return
 
-  return await ContactModel.findByIdAndDelete(id) 
+  return await ContactModel.findByIdAndDelete(id)
 }
 
 module.exports = Contact

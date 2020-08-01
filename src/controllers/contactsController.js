@@ -9,7 +9,9 @@ exports.register = async (req, res) => {
     const { name, surname, email, phone } = req.body
     const newContact = new Contact(name, surname, email, phone)
 
-    const contact = await newContact.register()
+    const createdById = req.session.user._id
+    
+    const contact = await newContact.register(createdById)
 
     if (contact.errors && contact.errors.length > 0) {
       req.flash('errorsMessages', contact.errors)
