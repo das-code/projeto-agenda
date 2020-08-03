@@ -13,6 +13,8 @@ body
         if user
           h1(class="text-center") Lista de Contatos
           p(class="text-center lead mb-5") Seus contatos estão abaixo.
+        else
+          include includes/wellcome
 
         include includes/flashMessage
 
@@ -24,13 +26,10 @@ body
 
         include includes/contactsTable
 
-        if !user
-          include includes/wellcome
+        if contacts && Object.keys(contacts).length
+          +makeContactsTable(contacts)
         else
-          if contacts && Object.keys(contacts).length
-            +makeContactsTable(contacts)
-          else
-            p(class="text-center lead text-muted") Não existem contatos na sua agenda
+          p(class="text-center lead text-muted") Não existem contatos na sua agenda
 
       .col-auto
 

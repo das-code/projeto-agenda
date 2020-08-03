@@ -14,4 +14,7 @@ mixin form(formInfo)
         label(for="password") Sua senha
         input(class="form-control" type="password" name="password")
 
-      button(class=`btn btn-${formInfo.theme} btn-lg btn-block font-weight-bold` type="submit")= formInfo.buttonLabel
+      button(
+        class=`btn btn-${formInfo.theme} btn-lg btn-block font-weight-bold`
+        type="submit"
+      )= formInfo.buttonLabel
