@@ -5,7 +5,7 @@
   "scripts": {
     "server": "nodemon server.js --ignore public --ignore frontend",
     "front:dev": "webpack -w --mode development",
-    "front:prod": "webpack --mode production"
+    "front:build": "webpack --mode production"
   },
   "license": "ISC",
   "dependencies": {

@@ -4,10 +4,16 @@ import 'regenerator-runtime/runtime'
 import '../images/contacts.png'
 import '../images/favicon/contacts-favicon.ico'
 
-console.log('olá browser')
+import validateLoginAndCreate from './modules/validateLoginAndCreate'
+import validateContact from './modules/validateContact'
+
+validateLoginAndCreate('.form-login')
+validateLoginAndCreate('.form-register')
+validateContact('.form-contact')
 
 const flashMessage = document.querySelector('.flash-message')
 
 setTimeout(() => {
-  flashMessage.parentElement.removeChild(flashMessage)
+  if (flashMessage)
+    flashMessage.parentElement.removeChild(flashMessage)
 }, 5000)

@@ -24,10 +24,11 @@ body
           form(
             action=`${contact ? `/contato/update/${contact._id}` : '/contato/register'}`
             method='POST'
+            class='form-contact'
           )
             input(type="hidden" name="_csrf" value=`${csrfToken}`)
 
-            div.form-group
+            div(class="form-group name-group")
               label(for="name") Nome 
               input(
                 class="form-control"
@@ -36,7 +37,7 @@ body
                 value= `${contact ? contact.name : ''}`
               )
 
-            div.form-group
+            div(class="form-group surname-group")
               label(for="surname") Sobrenome 
               input(
                 class="form-control"
@@ -45,7 +46,7 @@ body
                 value= `${contact ? contact.surname : ''}`
               )
 
-            div.form-group
+            div(class="form-group email-group")
               label(for="email") E-mail 
               input(
                 class="form-control"
@@ -54,7 +55,7 @@ body
                 value= `${contact ? contact.email : ''}`
               )
 
-            div.form-group
+            div(class="form-group phone-group")
               label(for="phone") Número Telefone 
               input(
                 class="form-control"

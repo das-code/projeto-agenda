@@ -3,14 +3,14 @@ mixin form(formInfo)
     h3= formInfo.title 
     p.text-muted= formInfo.subtitle
 
-    form(action=`${formInfo.action}` method='POST')
+    form(class=`${formInfo.className}` action=`${formInfo.action}` method='POST')
       input(type="hidden" name="_csrf" value=`${csrfToken}`)
 
-      div.form-group
+      div(class="form-group email-group")
         label(for="email") Seu e-mail
         input(class="form-control" type="email" name="email")
 
-      div.form-group
+      div(class="form-group password-group")
         label(for="password") Sua senha
         input(class="form-control" type="password" name="password")
 

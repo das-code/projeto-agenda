@@ -23,7 +23,7 @@ class Login {
     if (!user) return { user: null, errors: ['Usuário não cadastrado.'] }
 
     if (!bcrypt.compareSync(this.password, user.password)) {
-      return 'Senha incorreta.'
+      return { user: null, errors: ['Senha incorreta.'] }
     }
 
     return { user, errors: null }
@@ -68,7 +68,7 @@ class Login {
   }
 
   static async findByID(id) {
-    if(typeof id !== 'string') return
+    if (typeof id !== 'string') return
 
     return await LoginModel.findById(id)
   }
