@@ -11,9 +11,6 @@ validateLoginAndCreate('.form-login')
 validateLoginAndCreate('.form-register')
 validateContact('.form-contact')
 
-const flashMessage = document.querySelector('.flash-message')
+import fadeOutAlerts from './modules/fadeOutAlerts'
 
-setTimeout(() => {
-  if (flashMessage)
-    flashMessage.parentElement.removeChild(flashMessage)
-}, 5000)
+fadeOutAlerts()
