@@ -39,7 +39,8 @@ function validateForm(formElement) {
     error = true
   }
 
-  if (phoneInput.value.length < 8 && phoneInput.value.length > 16) {
+  const re = /(^\(?\d{0,2}\)?)(\d{4,5})\-?(\d{4}$)/g
+  if (!re.test(phoneInput.value)) {
     showFormWarning(formElement, '.phone-group', 'Telefone inválido!')
     error = true
   }
