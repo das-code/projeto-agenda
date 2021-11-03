@@ -21,7 +21,7 @@
     "mongoose": "^5.9.23",
     "pug": "^3.0.0",
     "regenerator-runtime": "^0.13.5",
-    "validator": "^13.1.1"
+    "validator": "^13.7.0"
   },
   "devDependencies": {
     "@babel/core": "^7.9.0",
